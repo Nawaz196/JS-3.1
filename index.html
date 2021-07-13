@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project-3.1</title>
+  </head>
+  <body>
+    <h1>Choosing photo from device</h1>
+
+    <div class="work">
+      <label for="spacing">Spacing :</label>
+      <input
+        type="range"
+        min="10"
+        max="200"
+        name="spacing"
+        value="10"
+        data-sizing="px"
+      />
+
+      <label for="blur">Blur :</label>
+      <input
+        type="range"
+        min="0"
+        max="25"
+        name="blur"
+        value="0"
+        data-sizing="px"
+      />
+
+      <label for="base">Base Color :</label>
+      <input type="color" name="base" />
+      <br />
+      <br />
+
+      <p>
+        <input
+          type="file"
+          accept="image/*"
+          name="image"
+          id="file"
+          onchange="loadFile(event)"
+          style="display: none"
+        />
+      </p>
+      <p><label for="file" style="cursor: pointer">Upload Image</label></p>
+      <p><img id="output" /></p>
+    </div>
+
+    <style>
+      :root {
+        --base: crimson;
+        --spacing: 10px;
+        --blur: 0px;
+      }
+
+      body {
+        text-align: center;
+      }
+
+      body {
+        background: cornflowerblue;
+        height: auto;
+        width: auto;
+      }
+      img {
+        width: 25%;
+        background: var(--base);
+        padding: var(--spacing);
+        filter: blur(var(--blur));
+      }
+    </style>
+
+    <script>
+
+      var loadFile = function(event) {
+      	var image = document.getElementById('output');
+      	image.src = URL.createObjectURL(event.target.files[0]);
+      }
+
+
+            const inputs = document.querySelectorAll(".work input");
+
+            function handleupdate() {
+              //console.log(this.name);
+
+              console.log(this.name);
+              const s = this.dataset.sizing || "";
+              document.documentElement.style.setProperty(
+                `--${this.name}`,
+                this.value + s
+              );
+            }
+
+            inputs.forEach((input) => input.addEventListener("change", handleupdate));
+            inputs.forEach((input) =>
+              input.addEventListener("mousemove", handleupdate)
+            );
+    </script>
+  </body>
+</html>
